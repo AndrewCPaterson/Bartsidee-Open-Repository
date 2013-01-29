@@ -1,12 +1,13 @@
 import mc
-import sys, os
+import sys
 import urllib
 import random
 from time import time
 
 class Tracker:
-    def __init__(self, uacode = False, debug = False):
+    def __init__(self, uacode = False, ):
         self.uacode = uacode
+        self.debug = False
         self.version = "1.0"
         self.domain = 'boxee.bartsidee.nl'
         self.application = mc.GetApp().GetId()
@@ -26,6 +27,9 @@ class Tracker:
 	except: self.boxeeid = 'None'
 
     def trackView(self, window = False):
+        if self.debug:
+            return
+        
         if not window:
             page = '/%s' % self.application
         else:
@@ -49,8 +53,6 @@ class Tracker:
         imgpath += '.' + var_today + '.2%3B%2B__utmz%3D' + var_cookie + '.'
         imgpath += var_today + '.2.2.utmcsr%3D_SOURCE_%7Cutmccn%3D_CAMPAIGN_%7Cutmcmd%3D_MEDIUM_%7Cutmctr%3D_KEYWORD_%7Cutmcct%3D_CONTENT_%3B%2B__utmv%3D'
         imgpath += var_cookie + '.' + var_uservar + '%3B'
-
-        print imgpath
 
         tracker = self.request(imgpath)
 
